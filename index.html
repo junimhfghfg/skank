@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Site com Imagem, Visitas e Partículas</title>
+  <title>Site com Imagem, Descrição e Partículas</title>
   <style>
     body, html {
       margin: 0;
@@ -30,29 +30,12 @@
       z-index: 0;
     }
 
-    /* Container da imagem + contador */
-    #container {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      position: relative;
-      z-index: 1;
-    }
-
     #main-image {
       max-width: 300px;
       border-radius: 12px;
       box-shadow: 0 0 20px rgba(255,255,255,0.2);
-    }
-
-    #visitas {
-      background: rgba(255,255,255,0.1);
-      padding: 15px 20px;
-      border-radius: 10px;
-      font-size: 18px;
-      min-width: 130px;
-      user-select: none;
-      box-shadow: 0 0 15px rgba(255,255,255,0.2);
+      position: relative;
+      z-index: 1;
     }
 
     #description {
@@ -68,17 +51,24 @@
 
   <canvas id="particles"></canvas>
 
-  <div id="container">
-    <div id="visitas">
-      Pessoas que viram seu site:<br>
-      <strong id="contador">0</strong>
-    </div>
-    <img id="main-image" src="https://media.discordapp.net/attachments/1307745862784647281/1404584307510476811/IMG_3397.jpg?ex=689bb892&is=689a6712&hm=f54dd52b2c9b648483418cb173e744df473215eaf1b4183d8cfd73ce1134c786&=&format=webp&width=809&height=837" alt="Minha Imagem" />
-  </div>
-
+  <img id="main-image" src="https://media.discordapp.net/attachments/1307745862784647281/1404584307510476811/IMG_3397.jpg?ex=689bb892&is=689a6712&hm=f54dd52b2c9b648483418cb173e744df473215eaf1b4183d8cfd73ce1134c786&=&format=webp&width=809&height=837" alt="Minha Imagem" />
   <div id="description">
     Skank Eo Melhor Em Fazer Sites.
   </div>
+
+<script>
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let particlesArray;
+
+  function initCanvas() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+  }
+
   class Particle {
     constructor() {
       this.x = Math.random() * width;
