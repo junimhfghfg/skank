@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Site com Imagem, Visitas e Partículas</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      background: #0d0d0d;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      color: white;
+      position: relative;
+      text-align: center;
+    }
+
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    /* Container da imagem + contador */
+    #container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    #main-image {
+      max-width: 300px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    }
+
+    #visitas {
+      background: rgba(255,255,255,0.1);
+      padding: 15px 20px;
+      border-radius: 10px;
+      font-size: 18px;
+      min-width: 130px;
+      user-select: none;
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
+    }
+
+    #description {
+      margin-top: 15px;
+      font-size: 18px;
+      max-width: 400px;
+      z-index: 1;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="particles"></canvas>
+
+  <div id="container">
+    <div id="visitas">
+      Pessoas que viram seu site:<br>
+      <strong id="contador">0</strong>
+    </div>
+    <img id="main-image" src="https://media.discordapp.net/attachments/1307745862784647281/1404584307510476811/IMG_3397.jpg?ex=689bb892&is=689a6712&hm=f54dd52b2c9b648483418cb173e744df473215eaf1b4183d8cfd73ce1134c786&=&format=webp&width=809&height=837" alt="Minha Imagem" />
+  </div>
+
+  <div id="description">
+    Skank Eo Melhor Em Fazer Sites.
+  </div>
+  class Particle {
+    constructor() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.size = Math.random() * 3 + 1;
+      this.speedX = (Math.random() - 0.5) * 1.5;
+      this.speedY = (Math.random() - 0.5) * 1.5;
+      this.color = 'rgba(255,255,255,0.7)';
+    }
+
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+
+      if (this.x < 0) this.x = width;
+      if (this.x > width) this.x = 0;
+      if (this.y < 0) this.y = height;
+      if (this.y > height) this.y = 0;
+    }
+
+    draw() {
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function initParticles(num) {
+    particlesArray = [];
+    for(let i = 0; i < num; i++) {
+      particlesArray.push(new Particle());
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+
+    particlesArray.forEach(p => {
+      p.update();
+      p.draw();
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  function start() {
+    initCanvas();
+    initParticles(100);
+    animate();
+  }
+
+  window.addEventListener('resize', () => {
+    initCanvas();
+  });
+
+  start();
+</script>
+</body>
+</html>
